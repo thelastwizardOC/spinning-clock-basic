@@ -44,13 +44,14 @@ $(document).ready(() => {
   var top = $(".main-content .month").css("top");
   var yearLeft = $(".main-content .year span").width() / 2;
 
+  var date = new Date();
   var Time = {
     currentTime: {
-      year: 2021,
-      month: 11,
-      day: 4,
-      hour: 7,
-      minute: 30,
+      year: 2000,
+      month: 1,
+      day: 1,
+      hour: 0,
+      minute: 0,
       second: 0,
       week: 0,
       shichen: {},
@@ -68,7 +69,7 @@ $(document).ready(() => {
     yearUnit: "Năm ",
     monthUnit: "T.",
     dayUnit: "N. ",
-    weekUnit: " ", // W
+    weekUnit: "", // W
     hourUnit: " Giờ",
     minuteUnit: " m",
     secondUnit: " s",
@@ -77,7 +78,6 @@ $(document).ready(() => {
   var month = Time.currentTime.month;
   var year = Time.currentTime.year;
   initTime(Time, type);
-
   $(".main-content .year").append(
     "<span class='current'>" + Time.yearUnit + Time.currentTime.year + "</span>"
   );
@@ -528,7 +528,6 @@ $(document).ready(() => {
     month = Time.currentTime.month;
     year = Time.currentTime.year;
     initTime(Time, type);
-
     $(".main-content .year").html("");
     $(".main-content .year").append(
       "<span class='current'>" +
@@ -1183,48 +1182,6 @@ $(document).ready(() => {
 
 function initTime(Time, type) {
   switch (type) {
-    case 0:
-      Time.months = getMonths(0, Time.currentTime.month);
-      Time.days = getdays(
-        0,
-        Time.currentTime.year,
-        Time.currentTime.month,
-        Time.currentTime.day
-      );
-      Time.weeks = getWeeks(0, Time.currentTime.week);
-      Time.hours = getHours(0, Time.currentTime.hour);
-      Time.minutes = getMinutes(0, Time.currentTime.minute);
-      Time.seconds = getSeconds(0, Time.currentTime.second);
-
-      Time.currentTime.week = Time.weekUnit + getWeek(0, Time.currentTime.week);
-      Time.currentTime.shichen = getShiChen(0, Time.currentTime.hour);
-      Time.shichens = getShiChens(0, Time.currentTime.shichen);
-
-      break;
-    case 1:
-      Time.months = getMonths(1, Time.currentTime.month);
-      Time.days = getdays(
-        1,
-        Time.currentTime.year,
-        Time.currentTime.month,
-        Time.currentTime.day
-      );
-      Time.weeks = getWeeks(1, Time.currentTime.week);
-      Time.hours = getHours(1, Time.currentTime.hour);
-      Time.minutes = getMinutes(1, Time.currentTime.minute);
-      Time.seconds = getSeconds(1, Time.currentTime.second);
-
-      Time.currentTime.month = numToSimp(Time.currentTime.month);
-      Time.currentTime.day = numToSimp(Time.currentTime.day);
-      Time.currentTime.week = Time.weekUnit + getWeek(1, Time.currentTime.week);
-      Time.currentTime.shichen = getShiChen(1, Time.currentTime.hour);
-      Time.shichens = getShiChens(1, Time.currentTime.shichen);
-      Time.currentTime.hour = numToSimp(Time.currentTime.hour);
-      Time.currentTime.minute = numToSimp(Time.currentTime.minute);
-      Time.currentTime.second = numToSimp(Time.currentTime.second);
-      Time.currentTime.year = getYear(1, Time.currentTime.year);
-
-      break;
     case 2:
       Time.months = getMonths(2, Time.currentTime.month);
       Time.days = getdays(
@@ -1247,33 +1204,6 @@ function initTime(Time, type) {
       Time.currentTime.minute = numToTrad(Time.currentTime.minute);
       Time.currentTime.second = numToTrad(Time.currentTime.second);
       Time.currentTime.year = getYear(2, Time.currentTime.year);
-
-      break;
-    case 3:
-      Time.months = getMonths(3, Time.currentTime.month);
-      Time.days = getdays(
-        0,
-        Time.currentTime.year,
-        Time.currentTime.month,
-        Time.currentTime.day
-      );
-      Time.weeks = getWeeks(3, Time.currentTime.week);
-      Time.hours = getHours(3, Time.currentTime.hour);
-      Time.minutes = getMinutes(3, Time.currentTime.minute);
-      Time.seconds = getSeconds(3, Time.currentTime.second);
-
-      Time.currentTime.month = getMonthEng(Time.currentTime.month);
-      Time.currentTime.week = getWeek(3, Time.currentTime.week);
-      Time.currentTime.shichen = getShiChen(3, Time.currentTime.hour);
-      Time.shichens = getShiChens(3, Time.currentTime.shichen);
-      Time.monthUnit = "";
-      Time.dayUnit = " day";
-      Time.weekUnit = "";
-      Time.hourUnit = " h";
-      Time.minuteUnit = " m";
-      Time.secondUnit = " s";
-      Time.yearUnit = " Year";
-
       break;
   }
 }
@@ -1289,24 +1219,6 @@ function getSpace(fontSize, type) {
     second: 0,
   };
   switch (type) {
-    case 0:
-      space.month = 30;
-      space.day = 65;
-      space.week = 100;
-      space.shichen = 150;
-      space.hour = 230;
-      space.minute = 270;
-      space.second = 310;
-      break;
-    case 1:
-      space.month = 40;
-      space.day = 85;
-      space.week = 145;
-      space.shichen = 192;
-      space.hour = 232;
-      space.minute = 292;
-      space.second = 355;
-      break;
     case 2:
       space.month = 40;
       space.day = 85;
@@ -1315,15 +1227,6 @@ function getSpace(fontSize, type) {
       space.hour = 230;
       space.minute = 290;
       space.second = 350;
-      break;
-    case 3:
-      space.month = 40;
-      space.day = 75;
-      space.week = 125;
-      space.shichen = 160;
-      space.hour = 255;
-      space.minute = 295;
-      space.second = 335;
       break;
   }
   return space;

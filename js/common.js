@@ -127,14 +127,6 @@ function getYear(type, year) {
   var hund = parseInt((year / 100) % 10);
   var thou = parseInt((year / 1000) % 10);
   switch (type) {
-    case 0:
-    case 3:
-      res = year;
-      break;
-    case 1:
-      res =
-        numToSimp(thou) + numToSimp(hund) + numToSimp(tens) + numToSimp(units);
-      break;
     case 2:
       res =
         numToTrad(thou) + numToTrad(hund) + numToTrad(tens) + numToTrad(units);
@@ -161,36 +153,12 @@ function getMonths(type, month) {
   ];
   var i = 1;
   switch (type) {
-    case 0:
-      for (i = month; i <= 12; i++) {
-        months.push(i);
-      }
-      for (i = 1; i < month; i++) {
-        months.push(i);
-      }
-      break;
-    case 1:
-      for (i = month; i <= 12; i++) {
-        months.push(numToSimp(i));
-      }
-      for (i = 1; i < month; i++) {
-        months.push(numToSimp(i));
-      }
-      break;
     case 2:
       for (i = month; i <= 12; i++) {
         months.push(numToTrad(i));
       }
       for (i = 1; i < month; i++) {
         months.push(numToTrad(i));
-      }
-      break;
-    case 3:
-      for (i = month - 1; i < 12; i++) {
-        months.push(monthsEng[i]);
-      }
-      for (i = 0; i < month - 1; i++) {
-        months.push(monthsEng[i]);
       }
       break;
   }
@@ -202,57 +170,6 @@ function getdays(type, year, month, day) {
   var j = 1;
   var isLeap = isLeapYear(year);
   switch (type) {
-    case 0:
-    case 3:
-      for (j = day; j <= 31; j++) {
-        days.push(j);
-        if (month == 2 && isLeap && j == 29) {
-          break;
-        }
-        if (month == 2 && !isLeap && j == 28) {
-          break;
-        }
-        if (
-          (month == 2 ||
-            month == 4 ||
-            month == 6 ||
-            month == 9 ||
-            month == 11) &&
-          j == 30
-        ) {
-          break;
-        }
-      }
-      for (j = 1; j < day; j++) {
-        days.push(j);
-      }
-      break;
-    case 1:
-      for (j = day; j <= 31; j++) {
-        days.push(numToSimp(j));
-        if (month == 2 && isLeap && j == 29) {
-          break;
-        }
-        if (month == 2 && !isLeap && j == 28) {
-          break;
-        }
-        if (
-          (month == 2 ||
-            month == 4 ||
-            month == 6 ||
-            month == 9 ||
-            month == 11) &&
-          j == 30
-        ) {
-          break;
-        }
-      }
-
-      for (j = 1; j < day; j++) {
-        days.push(numToSimp(j));
-      }
-
-      break;
     case 2:
       for (j = day; j <= 31; j++) {
         days.push(numToTrad(j));
@@ -290,46 +207,6 @@ function getShiChen(type, hour) {
   };
 
   switch (type) {
-    case 0:
-      if (hour >= 23 || hour < 1) {
-        shichen.index = 0;
-        shichen.str = "23:00-1:00";
-      } else if (hour >= 1 && hour < 3) {
-        shichen.index = 1;
-        shichen.str = "1:00-3:00";
-      } else if (hour >= 3 && hour < 5) {
-        shichen.index = 2;
-        shichen.str = "3:00-5:00";
-      } else if (hour >= 5 && hour < 7) {
-        shichen.index = 3;
-        shichen.str = "5:00-7:00";
-      } else if (hour >= 7 && hour < 9) {
-        shichen.index = 4;
-        shichen.str = "7:00-9:00";
-      } else if (hour >= 9 && hour < 11) {
-        shichen.index = 5;
-        shichen.str = "9:00-11:00";
-      } else if (hour >= 11 && hour < 13) {
-        shichen.index = 6;
-        shichen.str = "11:00-13:00";
-      } else if (hour >= 13 && hour < 15) {
-        shichen.index = 7;
-        shichen.str = "13:00-15:00";
-      } else if (hour >= 15 && hour < 17) {
-        shichen.index = 8;
-        shichen.str = "15:00-17:00";
-      } else if (hour >= 17 && hour < 19) {
-        shichen.index = 9;
-        shichen.str = "17:00-19:00";
-      } else if (hour >= 19 && hour < 21) {
-        shichen.index = 10;
-        shichen.str = "19:00-21:00";
-      } else if (hour >= 21 && hour < 23) {
-        shichen.index = 11;
-        shichen.str = "21:00-23:00";
-      }
-      break;
-    case 1:
     case 2:
       if (hour >= 23 || hour < 1) {
         shichen.index = 0;
@@ -458,29 +335,12 @@ function getShiChens(type, shichen) {
     "21pm to 23pm",
   ];
   switch (type) {
-    case 0:
-      for (i = shichen.index; i < 12; i++) {
-        shichens.push(shichen0[i]);
-      }
-      for (i = 0; i < shichen.index; i++) {
-        shichens.push(shichen0[i]);
-      }
-      break;
-    case 1:
     case 2:
       for (i = shichen.index; i < 12; i++) {
         shichens.push(shichen1[i]);
       }
       for (i = 0; i < shichen.index; i++) {
         shichens.push(shichen1[i]);
-      }
-      break;
-    case 3:
-      for (i = shichen.index; i < 12; i++) {
-        shichens.push(shichen3[i]);
-      }
-      for (i = 0; i < shichen.index; i++) {
-        shichens.push(shichen3[i]);
       }
       break;
   }
@@ -507,30 +367,20 @@ function getMonthEng(month) {
 
 function getWeeks(type, week) {
   weeks = [];
-  weeksEng = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
   var i = 0;
   switch (type) {
-    case 0:
-      break;
-    case 1:
-      break;
     case 2:
       for (i = week; i < 7; i++) {
-        weeks[i] = "Thứ " + numToSimp(i + 2); // Thứ trong tuần
-        if (i == 6) {
-          weeks[i] = "SunD";
+        weeks[i] = "Thứ " + numToSimp(i + 1);
+        if (i == 0) {
+          weeks[i] = "CN";
         }
       }
       for (i = 0; i < week; i++) {
-        weeks[i] = "T" + numToSimp(i);
-      }
-      break;
-    case 3:
-      for (i = week; i < 7; i++) {
-        weeks.push(weeksEng[i]);
-      }
-      for (i = 0; i < week; i++) {
-        weeks.push(weeksEng[i]);
+        weeks[i] = "Thứ " + numToSimp(i + 1);
+        if (i == 0) {
+          weeks[i] = "CN";
+        }
       }
       break;
   }
@@ -538,20 +388,14 @@ function getWeeks(type, week) {
 }
 
 function getWeek(type, week) {
-  weekEng = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
   res = "";
   switch (type) {
-    case 0:
-    case 1:
     case 2:
       if (week == 0) {
-        res = ""; // Ngày
+        res = "CN"; // Ngày
       } else {
-        res = numToSimp(week);
+        res = "Thứ " + numToSimp(week + 1);
       }
-      break;
-    case 3:
-      res = weekEng[week];
       break;
   }
   return res;
@@ -561,23 +405,6 @@ function getHours(type, hour) {
   var hours = new Array();
   var i = 0;
   switch (type) {
-    case 0:
-    case 3:
-      for (i = hour; i < 24; i++) {
-        hours.push(i);
-      }
-      for (i = 0; i < hour; i++) {
-        hours.push(i);
-      }
-      break;
-    case 1:
-      for (i = hour; i < 24; i++) {
-        hours.push(numToSimp(i));
-      }
-      for (i = 0; i < hour; i++) {
-        hours.push(numToSimp(i));
-      }
-      break;
     case 2:
       for (i = hour; i < 24; i++) {
         hours.push(numToTrad(i));
@@ -594,23 +421,6 @@ function getMinutes(type, minute) {
   var minutes = new Array();
   var i = 0;
   switch (type) {
-    case 0:
-    case 3:
-      for (i = minute; i < 60; i++) {
-        minutes.push(i);
-      }
-      for (i = 0; i < minute; i++) {
-        minutes.push(i);
-      }
-      break;
-    case 1:
-      for (i = minute; i < 60; i++) {
-        minutes.push(numToSimp(i));
-      }
-      for (i = 0; i < minute; i++) {
-        minutes.push(numToSimp(i));
-      }
-      break;
     case 2:
       for (i = minute; i < 60; i++) {
         minutes.push(numToTrad(i));
@@ -627,23 +437,6 @@ function getSeconds(type, second) {
   var seconds = new Array();
   var i = 0;
   switch (type) {
-    case 0:
-    case 3:
-      for (i = second; i < 60; i++) {
-        seconds.push(i);
-      }
-      for (i = 0; i < second; i++) {
-        seconds.push(i);
-      }
-      break;
-    case 1:
-      for (i = second; i < 60; i++) {
-        seconds.push(numToSimp(i));
-      }
-      for (i = 0; i < second; i++) {
-        seconds.push(numToSimp(i));
-      }
-      break;
     case 2:
       for (i = second; i < 60; i++) {
         seconds.push(numToTrad(i));
@@ -729,57 +522,6 @@ function updateDays(type, year, month, day) {
   var j = 1;
   var isLeap = isLeapYear(year);
   switch (type) {
-    case 0:
-    case 3:
-      for (j = day; j <= 31; j++) {
-        days.push(j);
-        if (month == 2 && isLeap && j == 29) {
-          break;
-        }
-        if (month == 2 && !isLeap && j == 28) {
-          break;
-        }
-        if (
-          (month == 2 ||
-            month == 4 ||
-            month == 6 ||
-            month == 9 ||
-            month == 11) &&
-          j == 30
-        ) {
-          break;
-        }
-      }
-      for (j = 1; j < day; j++) {
-        days.push(j);
-      }
-      break;
-    case 1:
-      for (j = 1; j <= 31; j++) {
-        days.push(numToSimp(j));
-        if (month == 2 && isLeap && j == 29) {
-          break;
-        }
-        if (month == 2 && !isLeap && j == 28) {
-          break;
-        }
-        if (
-          (month == 2 ||
-            month == 4 ||
-            month == 6 ||
-            month == 9 ||
-            month == 11) &&
-          j == 30
-        ) {
-          break;
-        }
-      }
-
-      for (j = 1; j < day; j++) {
-        days.push(numToSimp(j));
-      }
-
-      break;
     case 2:
       for (j = 1; j <= 31; j++) {
         days.push(numToTrad(j));
@@ -813,9 +555,6 @@ function updateDays(type, year, month, day) {
 function getFirstDay(type) {
   day = 1;
   switch (type) {
-    case 1:
-      day = numToSimp(day);
-      break;
     case 2:
       day = numToTrad(day);
       break;
